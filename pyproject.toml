@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "difference_generator"
+version = "0.1.0"
+description = ""
+authors = ["Evgenii T"]
+packages = [
+  { include = "difference_generator" },
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[tool.poetry.dev-dependencies]
+
+
+[tool.poetry.scripts]
+gendiff = "difference_generator.scripts.gendiff:main"
+
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
