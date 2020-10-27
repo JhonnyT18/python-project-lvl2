@@ -4,7 +4,7 @@
 # -*- coding: utf-8 -*-
 
 
-from difference_generator.info_gendiff import info_gendiff
+from gendiff.cli import info_gendiff
 
 
 def main():

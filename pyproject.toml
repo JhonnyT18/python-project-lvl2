@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "difference_generator"
+name = "hexlet-code"
 version = "0.1.0"
 description = ""
 authors = ["Evgenii T"]
 packages = [
-  { include = "difference_generator" },
+  { include = "gendiff" },
 ]
 
 
@@ -16,7 +16,7 @@ python = "^3.8"
 
 
 [tool.poetry.scripts]
-gendiff = "difference_generator.scripts.gendiff:main"
+gendiff = "gendiff.scripts.gendiff:main"
 
 
 [build-system]
