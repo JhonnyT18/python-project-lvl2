@@ -2,13 +2,12 @@
 
 
 # -*- coding: utf-8 -*-
-
-
-from gendiff.cli import info_gendiff
+from gendiff.engine import make_diff
+from gendiff import gendiff
 
 
 def main():
-    info_gendiff()
+    make_diff(gendiff)
 
 
 if __name__ == '__main__':
