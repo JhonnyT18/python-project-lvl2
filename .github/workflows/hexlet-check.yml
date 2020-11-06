@@ -19,10 +19,10 @@ jobs:
             python -m pip install --upgrade pip
             pip install flake8 pytest poetry
       - name: Run linter
-          run: |
+        run: |
             make lint
       -name: Run tests
-          run: |
+        run: |
             make run_tests
       - name: Hexlet project check
         uses: hexlet/project-action@release
