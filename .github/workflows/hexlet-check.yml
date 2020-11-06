@@ -19,8 +19,8 @@ jobs:
             python -m pip install --upgrade pip
             pip install flake8 pytest poetry
       - name: Run linter
-          run: make lint
+          run: poetry run flake8 gendiff
       - name: Run tests
-          run: make run_tests
+          run: poetry run pytest --cov-report xml
       - name: Hexlet project check
         uses: hexlet/project-action@release
