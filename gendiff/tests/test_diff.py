@@ -9,4 +9,4 @@ result = file.read()
 
 
 def test_gendiff():
-    assert result == generate_diff('gendiff/tests/fixtures/file1.json', 'gendiff/tests/fixtures/file2.json')
+    assert result == generate_diff('gendiff/tests/fixtures/file1.json', 'gendiff/tests/fixtures/file2.json')  # noqa: E501
