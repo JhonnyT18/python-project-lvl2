@@ -24,6 +24,6 @@ jobs:
       - name: Hexlet project check
         uses: hexlet/project-action@release
       - name: Run linter
-          run: make lint
+        run: make lint
       - name: Run tests
-          run: make run_tests
+        run: make run_tests
