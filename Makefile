@@ -1,3 +1,7 @@
+install:
+	@poetry install
+
+
 lint:
 	@poetry run flake8 gendiff
 
@@ -6,5 +10,5 @@ build:
 	@poetry build
 
 
-run_tests:
+test:
 	@poetry run pytest --cov-report xml
