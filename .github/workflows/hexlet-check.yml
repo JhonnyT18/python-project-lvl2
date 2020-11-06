@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ 3.6, 3.7, 3.8 ]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -23,11 +20,9 @@ jobs:
             pip install flake8 pytest poetry
       - name: Run linter
         run: |
-         make lint
+            make lint
       - name: Run tests
         run: |
-         make run_tests
+           make run_tests
       - name: Hexlet project check
         uses: hexlet/project-action@release
-
-
