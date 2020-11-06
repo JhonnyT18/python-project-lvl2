@@ -13,3 +13,10 @@ jobs:
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
+
+      - name: 'test'
+        run: make run_tests
+
+      - name: 'linter'
+        run: make linter
+
