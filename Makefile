@@ -17,3 +17,5 @@ test:
 test-cov:
 	@poetry run coverage run --source=gendiff -m pytest
 	@poetry run coverage xml
+
+.PHONY: install lint build test test-cov
