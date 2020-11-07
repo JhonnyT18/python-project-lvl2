@@ -2,29 +2,31 @@ name: hexlet-check
 
 on:
   push:
-    branches: master
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.6, 3.7, 3.8]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
+
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.7'
+
       - name: Install dependencies
         run: |
           pip install poetry
           make install
       - name: Run linter
-        run: make lint
+        run: |
+          make lint
       - name: Run tests
-        run: make test
-      - name: Code Climate Coverage Action
+        run: |
+          make test
+      - name: Coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
