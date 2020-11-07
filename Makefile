@@ -11,4 +11,9 @@ build:
 
 
 test:
-	@poetry run pytest --cov-report xml
+	@poetry run pytest -v
+
+
+test-cov:
+	@poetry run coverage run --source=gendiff -m pytest
+	@poetry run coverage xml

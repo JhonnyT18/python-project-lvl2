@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Github Actions Status](https://github.com/JhonnyT18/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/JhonnyT18/python-project-lvl2/actions)
+[![Github Actions Status](https://github.com/JhonnyT18/python-project-lvl2/workflows/CI/badge.svg)](https://github.com/JhonnyT18/python-project-lvl2/actions)
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/12dc053ac6671063f54f/maintainability)](https://codeclimate.com/github/JhonnyT18/python-project-lvl2/maintainability)
