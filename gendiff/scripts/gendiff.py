@@ -7,7 +7,7 @@ from gendiff import gendiff
 
 
 def main():
-    get_diff(get_diff)
+    get_diff(gendiff)
 
 
 if __name__ == '__main__':
