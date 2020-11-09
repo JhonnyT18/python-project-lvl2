@@ -11,15 +11,10 @@ build:
 
 
 test:
-	@poetry run pytest -v
-
-
-test-cov:
-	@poetry run coverage run --source=gendiff -m pytest
-	@poetry run coverage xml
+	poetry run pytest --cov=gendiff --cov-report xml tests/
 
 
 coverage:
-	poetry run coverage xml
+	@poetry run coverage xml
 
 .PHONY: install lint build test test-cov coverage
