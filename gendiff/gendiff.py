@@ -39,6 +39,5 @@ def generate_diff(path_to_file1, path_to_file2):
     str_dif = ''
     for i in sorted_diff:
         str_dif += ('   ' + i[0] + ': ' + i[1] + '\n')
-    print(str_dif)
     result = '{}\n{}{}'.format('{', str_dif, '}')
     return result
