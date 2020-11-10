@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gendiff"
+name = "gendiff-by-JhonnyT"
 version = "0.2.1"
 description = ""
 authors = ["Evgenii T"]

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
-
 import json
+from gendiff.files_loader import to_load
 
 
 def get_data(path_to_file1, path_to_file2):
@@ -34,7 +33,8 @@ def make_diff(first_file, second_file):
 
 
 def generate_diff(path_to_file1, path_to_file2):
-    first_file, second_file = get_data(path_to_file1, path_to_file2)
+    first_file = to_load(path_to_file1)
+    second_file = to_load(path_to_file2)
     sorted_diff = make_diff(first_file, second_file)
     str_dif = ''
     for i in sorted_diff:
