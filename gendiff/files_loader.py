@@ -4,13 +4,17 @@ import json
 import yaml
 
 
-def get_type(file_path):
-    return os.path.splitext(file_path)[1]
+def get_type(path_to_file):
+    return os.path.splitext(path_to_file)[1]
 
 
-def to_load(file_path):
-    _type = get_type(file_path)
+def get_data(path_to_file):
+    with open(path_to_file) as file:
+        return to_load(file, get_type(path_to_file))
+
+
+def to_load(_file, _type):
     if _type == '.json':
-        return json.load(open(file_path))
+        return json.load(_file)
     else:
-        return yaml.safe_load(open(file_path))
+        return yaml.safe_load(_file)

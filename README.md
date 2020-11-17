@@ -5,5 +5,7 @@
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/12dc053ac6671063f54f/test_coverage)](https://codeclimate.com/github/JhonnyT18/python-project-lvl2/gendiff/test_coverage)
 #### Examples
-*#example for gendiff:*
+*#example for gendiff with .json:*
 [![asciicast](https://asciinema.org/a/mKESp62IplcPrjuX78olim3Bv.svg)](https://asciinema.org/a/mKESp62IplcPrjuX78olim3Bv)
+*#example for gendiff with .yaml:*
+[![asciicast](https://asciinema.org/a/cu2Qnu0oPmUz6aRGwvRJlazhB.svg)](https://asciinema.org/a/cu2Qnu0oPmUz6aRGwvRJlazhB)

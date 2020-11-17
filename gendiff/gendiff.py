@@ -1,43 +1,43 @@
 # -*- coding: utf-8 -*-
-import json
-from gendiff.files_loader import to_load
+from gendiff.files_loader import get_data
 
 
-def get_data(path_to_file1, path_to_file2):
-    first_file = json.load(open(path_to_file1))
-    second_file = json.load(open(path_to_file2))
-    return first_file, second_file
-
-
-deleted, added, no_changed = ('- ', '+ ', '  ')
+added, deleted, changed, changeless = ('added', 'deleted', 'changed', 'changeless')  # noqa: E501
 
 
 def make_diff(first_file, second_file):
     keys_from_first = first_file.keys()
     keys_from_second = second_file.keys()
-    diff = []
+    diff = {}
     for key in keys_from_first & keys_from_second:
         if first_file[key] == second_file[key]:
-            diff.append((no_changed + key, str(first_file[key])))
+            diff[key] = (changeless, first_file[key])
         else:
-            diff.append((deleted + key, str(first_file[key])))
-            diff.append((added + key, str(second_file[key])))
-
+            diff[key] = (changed, (first_file[key], second_file[key]))
     for key in keys_from_first ^ keys_from_second:
         if key in keys_from_first:
-            diff.append((deleted + key, str(first_file[key])))
+            diff[key] = (deleted, first_file[key])
         else:
-            diff.append((added + key, str(second_file[key])))
-    sorted_diff = sorted(diff, key=lambda i: i[0][2])
-    return sorted_diff
+            diff[key] = (added, second_file[key])
+    return diff
 
 
-def generate_diff(path_to_file1, path_to_file2):
-    first_file = to_load(path_to_file1)
-    second_file = to_load(path_to_file2)
-    sorted_diff = make_diff(first_file, second_file)
-    str_dif = ''
-    for i in sorted_diff:
-        str_dif += ('   ' + i[0] + ': ' + i[1] + '\n')
-    result = '{}\n{}{}'.format('{', str_dif, '}')
-    return result
+def generate_diff(path_to_first, path_to_second):
+    first_file, second_file = (get_data(path_to_first), get_data(path_to_second))  # noqa: E501
+    diff = make_diff(first_file, second_file)
+    keys = list(diff.keys())
+    keys.sort()
+    result = ''
+    for i in keys:
+        indent = '    '
+        condition, value = diff[i]
+        if condition == 'changeless':
+            result += indent + '  ' + i + ': ' + str(value) + '\n'
+        elif condition == 'changed':
+            result += indent + '- ' + i + ': ' + str(value[0]) + '\n'
+            result += indent + '+ ' + i + ': ' + str(value[1]) + '\n'
+        elif condition == 'add':
+            result += indent + '+ ' + i + ': ' + str(value) + '\n'
+        elif condition == 'deleted':
+            result += indent + '- ' + i + ': ' + str(value) + '\n'
+    return '{}\n{}{}'.format('{', result, '}')
