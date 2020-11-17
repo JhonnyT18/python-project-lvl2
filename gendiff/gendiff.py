@@ -29,7 +29,7 @@ def generate_diff(path_to_first, path_to_second):
     keys.sort()
     result = ''
     for i in keys:
-        indent = '    '
+        indent = '   '
         condition, value = diff[i]
         if condition == 'changeless':
             result += indent + '  ' + i + ': ' + str(value) + '\n'
