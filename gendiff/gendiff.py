@@ -26,9 +26,7 @@ def make_diff(first_file, second_file):
 
 
 def generate_diff(path_to_first, path_to_second):
-    first_file = get_data(path_to_first)
-    second_file = get_data(path_to_second)
-    diff = make_diff(first_file, second_file)
+    diff = make_diff(get_data(path_to_first), get_data(path_to_second))
     indent = '   '
     keys = list(diff.keys())
     keys.sort()
