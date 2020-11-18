@@ -12,12 +12,14 @@ def make_diff(first_file, second_file):
     keys_from_first = first_file.keys()
     keys_from_second = second_file.keys()
     diff = {}
-    for key in keys_from_first & keys_from_second:
+    common_keys = keys_from_first & keys_from_second
+    keys_one_only = keys_from_first ^ keys_from_second
+    for key in common_keys:
         if first_file[key] == second_file[key]:
             diff[key] = (changeless, first_file[key])
         else:
             diff[key] = (changed, (first_file[key], second_file[key]))
-    for key in keys_from_first ^ keys_from_second:
+    for key in keys_one_only:
         if key in keys_from_first:
             diff[key] = (deleted, first_file[key])
         else:
@@ -26,7 +28,9 @@ def make_diff(first_file, second_file):
 
 
 def generate_diff(path_to_first, path_to_second):
-    diff = make_diff(get_data(path_to_first), get_data(path_to_second))
+    first_file = get_data(path_to_first)
+    second_file = get_data(path_to_second)
+    diff = make_diff(first_file, second_file)
     indent = '   '
     keys = list(diff.keys())
     keys.sort()
