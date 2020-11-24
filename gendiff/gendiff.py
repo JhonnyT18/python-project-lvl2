@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from gendiff.files_loader import get_data
+from gendiff.output_formats import stylish
 
 
 added = 'added'
 deleted = 'deleted'
 changed = 'changed'
 changeless = 'changeless'
+children = 'children'
 
 
 def make_diff(first_file, second_file):
@@ -17,6 +19,8 @@ def make_diff(first_file, second_file):
     for key in common_keys:
         if first_file[key] == second_file[key]:
             diff[key] = (changeless, first_file[key])
+        elif isinstance(first_file[key], dict) and isinstance(second_file[key], dict):  # noqa: E501
+            diff[key] = (children, make_diff(first_file[key], second_file[key]))  # noqa: E501
         else:
             diff[key] = (changed, (first_file[key], second_file[key]))
     for key in keys_one_only:
@@ -27,23 +31,7 @@ def make_diff(first_file, second_file):
     return diff
 
 
-def generate_diff(path_to_first, path_to_second):
+def generate_diff(path_to_first, path_to_second, output_format=stylish):
     first_file = get_data(path_to_first)
     second_file = get_data(path_to_second)
-    diff = make_diff(first_file, second_file)
-    indent = '   '
-    keys = list(diff.keys())
-    keys.sort()
-    result = ''
-    for key in keys:
-        condition, value = diff[key]
-        if condition == 'changeless':
-            result += indent + '  ' + key + ': ' + str(value) + '\n'
-        elif condition == 'changed':
-            result += indent + '- ' + key + ': ' + str(value[0]) + '\n'
-            result += indent + '+ ' + key + ': ' + str(value[1]) + '\n'
-        elif condition == 'added':
-            result += indent + '+ ' + key + ': ' + str(value) + '\n'
-        elif condition == 'deleted':
-            result += indent + '- ' + key + ': ' + str(value) + '\n'
-    return '{}\n{}{}'.format('{', result, '}')
+    return stylish.render(make_diff(first_file, second_file))
