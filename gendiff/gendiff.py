@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from gendiff.files_loader import get_data
-from gendiff.output_formats import stylish
+from gendiff.output_formats import stylish, plain
 
 
 added = 'added'
@@ -31,7 +31,9 @@ def make_diff(first_file, second_file):
     return diff
 
 
-def generate_diff(path_to_first, path_to_second, output_format=stylish):
+def generate_diff(path_to_first, path_to_second, output_format='stylish'):
     first_file = get_data(path_to_first)
     second_file = get_data(path_to_second)
+    if output_format == 'plain':
+        return plain.render(make_diff(first_file, second_file))
     return stylish.render(make_diff(first_file, second_file))

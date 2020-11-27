@@ -11,3 +11,5 @@
 [![asciicast](https://asciinema.org/a/cu2Qnu0oPmUz6aRGwvRJlazhB.svg)](https://asciinema.org/a/cu2Qnu0oPmUz6aRGwvRJlazhB)
 *#example for gendiff with files that looks like trees:*
 [![asciicast](https://asciinema.org/a/b5QBWVjLf5Vr5VRo9eN6GylJD.svg)](https://asciinema.org/a/b5QBWVjLf5Vr5VRo9eN6GylJD)
+*#example for gendiff with result in the plain form:*
+[![asciicast](https://asciinema.org/a/5D4skYXGgdafVfQd1DXl9k8d1.svg)](https://asciinema.org/a/5D4skYXGgdafVfQd1DXl9k8d1)
