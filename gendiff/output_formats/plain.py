@@ -4,10 +4,10 @@ REMOVED = "Property '{}' was removed"
 UPDATE = "Property '{}' was updated. From {} to {}"
 
 
-def get_plain(diff, before_keys=''):
+def get_plain(built_diff, before_keys=''):
     result = ''
-    for key in sorted(list(diff.keys())):
-        condition, value = diff[key]
+    for key in sorted(list(built_diff.keys())):
+        condition, value = built_diff[key]
         if condition == 'added':
             result += ADDED.format(str(before_keys) + str(key), to_transform_value(value)) + '\n'  # noqa: E501
         elif condition == 'deleted':
@@ -31,5 +31,5 @@ def to_transform_value(value):
         return "'" + str(value) + "'"
 
 
-def render(diff):
-    return get_plain(diff)
+def render(input_data):
+    return get_plain(input_data)

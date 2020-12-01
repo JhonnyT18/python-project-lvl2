@@ -25,8 +25,8 @@ def to_transform_value(value, indent):
         return str(value)
 
 
-def make_first_part_stylish(diff, key, indent):
-    condition, value = diff[key]
+def make_first_part_stylish(built_diff, key, indent):
+    condition, value = built_diff[key]
     if condition == 'changed':
         value, new_value = value
     result = indent * ' ' + conditions[condition] + str(key) + ': '
@@ -39,20 +39,20 @@ def make_first_part_stylish(diff, key, indent):
     return result
 
 
-def get_stylish(diff, indent):
-    keys_from_diff = list(diff.keys())
+def get_stylish(built_diff, indent):
+    keys_from_diff = list(built_diff.keys())
     keys_from_diff.sort()
     result = ''
     for key in keys_from_diff:
-        condition, value = diff[key]
+        condition, value = built_diff[key]
         if condition == 'children':
-            result += make_first_part_stylish(diff, key, indent) + '{\n'
+            result += make_first_part_stylish(built_diff, key, indent) + '{\n'
             result += get_stylish(value, indent + indent_step)
             result += indent * ' ' + '  }\n'
         else:
-            result += make_first_part_stylish(diff, key, indent)
+            result += make_first_part_stylish(built_diff, key, indent)
     return result
 
 
-def render(diff):
-    return '{\n' + get_stylish(diff, indent_start) + '}\n'
+def render(input_data):
+    return '{\n' + get_stylish(input_data, indent_start) + '}\n'

@@ -2,5 +2,5 @@
 import json
 
 
-def render(data):
-    return json.dumps(data, sort_keys=True, indent=4) + '\n'
+def render(input_data):
+    return json.dumps(input_data, sort_keys=True, indent=4) + '\n'
