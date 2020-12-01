@@ -13,8 +13,8 @@ def get_data(path_to_file):
         return to_load(file, get_type(path_to_file))
 
 
-def to_load(_file, _type):
-    if _type == '.json':
-        return json.load(_file)
+def to_load(opened_file, files_type):
+    if files_type == '.json':
+        return json.load(opened_file)
     else:
-        return yaml.safe_load(_file)
+        return yaml.safe_load(opened_file)
