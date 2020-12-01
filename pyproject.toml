@@ -3,6 +3,7 @@ name = "gendiff-by-JhonnyT"
 version = "0.6.1"
 description = ""
 authors = ["Evgenii T"]
+repository = "https://github.com/JhonnyT18/python-project-lvl2"
 packages = [
   { include = "gendiff" },
 ]
