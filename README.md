@@ -7,9 +7,9 @@
 
 ***This is a studying project from of programming courses from HEXLET. It generates diff between two json or yaml files.***
 ***You can get the diff in three formats:***
-:pushpin: stylish
-:pushpin: plain
-:pushpin: json
+-:pushpin: ***stylish***
+-:pushpin: ***plain***
+-:pushpin: ***json***
 ***You have to use a command for get the diff:***
 '''gendiff -f (here specify the required output format, for example: plain) "path to first file" "path to second file"'''
 ***Default output format is stylish.***
