@@ -10,8 +10,8 @@
 :pushpin: ***stylish***    
 :pushpin: ***plain***    
 :pushpin: ***json***    
-***You have to use a command for get the diff:***
-'''gendiff -f (here specify the required output format, for example: plain) "path to first file" "path to second file"'''
+***You have to use a command for get the diff:***    
+'gendiff -f (here specify the required output format, for example: plain) "path to first file" "path to second file"'
 ***Default output format is stylish.***
 ### Examples
 *#example for gendiff with .json files:*
