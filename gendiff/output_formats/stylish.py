@@ -10,7 +10,7 @@ conditions = {
 }
 
 
-def to_transform_value(value, indent):
+def to_str(value, indent):
     if isinstance(value, bool):
         return str(value).lower()
     elif value is None:
@@ -19,38 +19,31 @@ def to_transform_value(value, indent):
         keys = list(value.keys())
         result = '{'
         for key in keys:
-            result += '\n' + indent * ' ' + '  ' + str(key) + ': ' + to_transform_value(value[key], indent + indent_step)  # noqa: E501
-        return result + '\n' + (indent - indent_start) * ' ' + '}'
+            result += '\n' + (indent+indent_step) * ' ' + '  ' + str(key) + ': ' + to_str(value[key], indent + indent_step)  # noqa: E501
+        return result + '\n' + (indent + indent_start) * ' ' + '}'
     else:
         return str(value)
 
 
-def make_first_part_stylish(built_diff, key, indent):
-    condition, value = built_diff[key]
-    if condition == 'changed':
-        value, new_value = value
-    result = indent * ' ' + conditions[condition] + str(key) + ': '
-    if condition == 'children':
-        return result
-    result += to_transform_value(value, indent + indent_step) + '\n'
-    if condition != 'changed':
-        return result
-    result += indent * ' ' + '+ ' + str(key) + ': ' + to_transform_value(new_value, indent + indent_step) + '\n'  # noqa: E501
-    return result
-
-
 def get_stylish(built_diff, indent):
-    keys_from_diff = list(built_diff.keys())
-    keys_from_diff.sort()
+    keys_from_diff = sorted(list(built_diff.keys()))
+    print(keys_from_diff)
     result = ''
     for key in keys_from_diff:
         condition, value = built_diff[key]
-        if condition == 'children':
-            result += make_first_part_stylish(built_diff, key, indent) + '{\n'
-            result += get_stylish(value, indent + indent_step)
-            result += indent * ' ' + '  }\n'
+        result += indent * ' ' + conditions[condition] + str(key) + ': '
+        if condition == 'changed':
+            value, new_value = value
+            result += to_str(value, indent) + '\n'
+            result += indent * ' ' + '+ ' + str(key) + ': ' + to_str(new_value, indent + indent_step) + '\n'  # noqa: E501
+        elif condition == 'changeless':
+            result += to_str(value, indent) + '\n'
+        elif condition == 'added':
+            result += to_str(value, indent) + '\n'
+        elif condition == 'deleted':
+            result += to_str(value, indent) + '\n'
         else:
-            result += make_first_part_stylish(built_diff, key, indent)
+            result += '{\n' + get_stylish(value, indent + indent_step) + (indent + indent_start) * ' ' + '}\n'  # noqa: E501
     return result
 
 

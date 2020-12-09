@@ -1,33 +1,55 @@
 # -*- coding: utf-8 -*-
 from gendiff.gendiff import generate_diff
 import json
+import pytest
 
 
-def test_gendiff_json():
-    with open('tests/fixtures/expected.txt', 'r') as result:
-        assert result.read() == generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file2.json')
+path_to_fixtures = 'tests/fixtures/'
 
 
-def test_gendiff_yaml():
-    with open('tests/fixtures/expected.txt', 'r') as result:
-        assert result.read() == generate_diff('tests/fixtures/file1.yaml', 'tests/fixtures/file2.yaml')  # noqa: E501
+cases = [
+    (
+        path_to_fixtures + 'file1.json',
+        path_to_fixtures + 'file2.json',
+        'stylish',
+        path_to_fixtures + 'expected.txt'
+    ),
+    (
+        path_to_fixtures + 'file1.yaml',
+        path_to_fixtures + 'file2.yaml',
+        'stylish',
+        path_to_fixtures + 'expected.txt'
+    ),
+    (
+        path_to_fixtures + 'file_tree1.json',
+        path_to_fixtures + 'file_tree2.json',
+        'stylish',
+        path_to_fixtures + 'expected_tree.txt'
+    ),
+    (
+        path_to_fixtures + 'file_tree1.yaml',
+        path_to_fixtures + 'file_tree2.yaml',
+        'stylish',
+        path_to_fixtures + 'expected_tree.txt'
+    ),
+    (
+        path_to_fixtures + 'file_tree1.json',
+        path_to_fixtures + 'file_tree2.json',
+        'plain',
+        path_to_fixtures + 'expected_extent_plain.txt'
+    ),
+    (
+        path_to_fixtures + 'file_tree1.json',
+        path_to_fixtures + 'file_tree2.json',
+        'json',
+        path_to_fixtures + 'expected_extent_json.json'
+    )]
 
 
-def test_gendiff_tree_json():
-    with open('tests/fixtures/expected_tree.txt', 'r') as result:
-        assert result.read() == generate_diff('tests/fixtures/file_tree1.json', 'tests/fixtures/file_tree2.json')
-
-
-def test_gendiff_tree_yaml():
-    with open('tests/fixtures/expected_tree.txt', 'r') as result:
-        assert result.read() == generate_diff('tests/fixtures/file_tree1.yaml', 'tests/fixtures/file_tree2.yaml')
-
-
-def test_gendiff_format_plain():
-    with open('tests/fixtures/expected_for_plain.txt', 'r') as result:
-        assert result.read() == generate_diff('tests/fixtures/file_tree1.json', 'tests/fixtures/file_tree2.json', 'plain')  # noqa: E501
-
-
-def test_gendiff_format_json():
-    with open('tests/fixtures/expected_form_json.json', 'r') as file:
-        assert json.loads(generate_diff('tests/fixtures/file_tree1.json', 'tests/fixtures/file_tree2.json', 'json')) == json.load(file)  # noqa: E501
+@pytest.mark.parametrize('path_to_first, path_to_second, form, expected', cases)
+def test_generate_diff(path_to_first, path_to_second, form, expected):
+    with open(expected, 'r') as file:
+        if form == 'json':
+            assert json.load(file) == json.loads(generate_diff(path_to_first, path_to_second, form))
+        else:
+            assert file.read() == generate_diff(path_to_first, path_to_second, form)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from gendiff.files_loader import get_data
+from gendiff.loading import get_data
 from gendiff.output_formats import stylish, plain, json
 
 
@@ -34,9 +34,9 @@ def make_diff(first_file, second_file):
 def generate_diff(path_to_first, path_to_second, output_format='stylish'):
     first_file = get_data(path_to_first)
     second_file = get_data(path_to_second)
-    if output_format == 'plain':
-        return plain.render(make_diff(first_file, second_file))
-    elif output_format == 'json':
-        return json.render(make_diff(first_file, second_file))
-    else:
-        return stylish.render(make_diff(first_file, second_file))
+    formats = {
+        'stylish': stylish.render,
+        'plain': plain.render,
+        'json': json.render
+    }
+    return formats[output_format](make_diff(first_file, second_file))
