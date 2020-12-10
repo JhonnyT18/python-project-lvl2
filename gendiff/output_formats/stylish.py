@@ -36,11 +36,7 @@ def get_stylish(built_diff, indent):
             value, new_value = value
             result += to_str(value, indent) + '\n'
             result += indent * ' ' + '+ ' + str(key) + ': ' + to_str(new_value, indent + indent_step) + '\n'  # noqa: E501
-        elif condition == 'changeless':
-            result += to_str(value, indent) + '\n'
-        elif condition == 'added':
-            result += to_str(value, indent) + '\n'
-        elif condition == 'deleted':
+        elif condition == 'changeless' or condition == 'added' or condition == 'deleted':  # noqa: E501
             result += to_str(value, indent) + '\n'
         else:
             result += '{\n' + get_stylish(value, indent + indent_step) + (indent + indent_start) * ' ' + '}\n'  # noqa: E501
